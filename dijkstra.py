@@ -2,6 +2,16 @@ import heapq
 from helper_fns import all_paths, random_graph
 
 def dijkstra(graph, s=1):
+    """
+    Dijkstra's shortest path algorithm.
+
+    Arguments:
+    graph (dictionary): dictionary with each key as a vertex and the value as a list of vertices connected via an edge
+    s (int): number representing the starting vertex
+
+    Returns two lists: dist (shortest distance to each vertex) and pred (list of predecessors on shortest path).
+    """
+        
     dist = {x: float('inf') for x in graph}
     pred = {x: 0 for x in graph}
 
@@ -10,20 +20,19 @@ def dijkstra(graph, s=1):
     heap = [(0, s)]
 
     while heap:
-        curr_dist, vertex_i = heapq.heappop(heap)
+        curr_dist, vertex_i = heapq.heappop(heap) # get shortest distance vertex
 
         if curr_dist > dist[vertex_i]:
             continue
 
-        for vertex_j, weight in graph[vertex_i]:
-
+        for vertex_j, weight in graph[vertex_i]: # for each vertex connected to current vertex i
             new_dist = dist[vertex_i] + weight
 
-            if new_dist < dist[vertex_j]:
+            if new_dist < dist[vertex_j]: # new shortest distance to vertex j
                 dist[vertex_j] = new_dist
                 pred[vertex_j] = vertex_i
 
-                heapq.heappush(heap, (new_dist, vertex_j))
+                heapq.heappush(heap, (new_dist, vertex_j)) # put vertex j in the heap
 
     return (list(dist.values()), list(pred.values()))
 
