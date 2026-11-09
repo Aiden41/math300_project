@@ -1,4 +1,5 @@
 import heapq
+from helper_fns import all_paths, random_graph
 
 def dijkstra(graph, s=1):
     dist = {x: float('inf') for x in graph}
@@ -26,14 +27,18 @@ def dijkstra(graph, s=1):
 
     return (list(dist.values()), list(pred.values()))
 
-graph = {
-    1: [(2, 2), (3, 8)],
-    2: [(3, 5), (4, 3)],
-    3: [(2, 6), (5, 0)],
-    4: [(3, 1), (5, 7), (6, 6)],
-    5: [(4, 4)],
-    6: [(5, 2)]
-}
+# graph = {
+#     1: [(2, 2), (3, 8)],
+#     2: [(3, 5), (4, 3)],
+#     3: [(2, 6), (5, 0)],
+#     4: [(3, 1), (5, 7), (6, 6)],
+#     5: [(4, 4)],
+#     6: [(5, 2)]
+# }
+
+vertices = 6
+edges = 11
+graph = random_graph(vertices, edges)
 
 s = 1
 
@@ -41,3 +46,9 @@ dist, pred = dijkstra(graph, s)
 
 print(f"dist: {dist}")
 print(f"pred: {pred}")
+
+for vertex, path in enumerate(all_paths(dist, pred), start=1):
+    if path is None:
+        print(f"No path to vertex {vertex}")
+    else:
+        print(f"SP to vertex {vertex}: {path}")
