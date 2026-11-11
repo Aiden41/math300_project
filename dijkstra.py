@@ -11,9 +11,9 @@ def dijkstra(graph, s=1):
 
     Returns two lists: dist (shortest distance to each vertex) and pred (list of predecessors on shortest path).
     """
-        
+
     dist = {x: float('inf') for x in graph}
-    pred = {x: 0 for x in graph}
+    pred = {x: None for x in graph}
 
     dist[s] = 0
 
@@ -36,18 +36,27 @@ def dijkstra(graph, s=1):
 
     return (list(dist.values()), list(pred.values()))
 
-# graph = {
-#     1: [(2, 2), (3, 8)],
-#     2: [(3, 5), (4, 3)],
-#     3: [(2, 6), (5, 0)],
-#     4: [(3, 1), (5, 7), (6, 6)],
-#     5: [(4, 4)],
-#     6: [(5, 2)]
-# }
+graph = {
+    1: [(2, 2), (3, 8)],
+    2: [(3, 5), (4, 3)],
+    3: [(2, 6), (5, 0)],
+    4: [(3, 1), (5, 7), (6, 6)],
+    5: [(4, 4)],
+    6: [(5, 2)]
+}
 
-vertices = 6
-edges = 11
-graph = random_graph(vertices, edges)
+# dist: [0, 2, 6, 5, 6, 11]
+# pred: [None, 1, 4, 2, 3, 4]
+# SP to vertex 1: [1]
+# SP to vertex 2: [1, 2]
+# SP to vertex 3: [1, 2, 4, 3]
+# SP to vertex 4: [1, 2, 4]
+# SP to vertex 5: [1, 2, 4, 3, 5]
+# SP to vertex 6: [1, 2, 4, 6]
+
+# vertices = 6
+# edges = 11
+# graph = random_graph(vertices, edges)
 
 s = 1
 
@@ -58,6 +67,6 @@ print(f"pred: {pred}")
 
 for vertex, path in enumerate(all_paths(dist, pred), start=1):
     if path is None:
-        print(f"No path to vertex {vertex}")
+        print(f"Vertex {vertex} is unreachable")
     else:
         print(f"SP to vertex {vertex}: {path}")

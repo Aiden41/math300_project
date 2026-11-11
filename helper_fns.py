@@ -11,12 +11,12 @@ def reconstruct_path(dist, pred, t):
 
     Returns a list representing the shortest path to the vertex t. 
     """
+
     if dist[t - 1] == float('inf'): # the distance was inf, no path to this vertex
         return None
-    
     path = []
 
-    while t != 0: 
+    while t is not None: 
         path.append(t) # add vertex to list
         t = pred[t - 1] # move back an index
 
@@ -33,6 +33,7 @@ def all_paths(dist, pred):
 
     Returns a list of lists containing the shortest path to each vertex.
     """
+
     paths = []
 
     for vertex in range(1, len(pred) + 1): # loop through each vertex
@@ -50,6 +51,7 @@ def random_graph(vertices, edges):
 
     Returns a dictionary representing a random graph matching the specified arguments.
     """
+
     if edges > vertices * (vertices - 1):
         edges = vertices * (vertices - 1)
         print(f"WARNING: requested too many edges, limiting to {edges} edges (vertices * (vertices - 1)).")     
