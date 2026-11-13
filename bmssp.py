@@ -185,9 +185,9 @@ def bmssp(graph, s=1):
 
     n = len(graph)
 
-    k = int(math.floor(math.log(n) ** (1/3)))
-    t = int(math.floor(math.log(n) ** (2/3)))
-    l = int(math.ceil(math.log(n)/t))
+    k = int(math.ceil(math.log2(n) ** (1/3)))
+    t = int(math.ceil(math.log2(n) ** (2/3)))
+    l = int(math.ceil(math.log2(n)/t))
 
     B = (float('inf'), float('inf'), ())
 
@@ -195,28 +195,28 @@ def bmssp(graph, s=1):
 
     return (list(dist.values()), list(pred.values()))
 
-graph = {
-    1: [(2, 2), (3, 8)],
-    2: [(3, 5), (4, 3)],
-    3: [(2, 6), (5, 0)],
-    4: [(3, 1), (5, 7), (6, 6)],
-    5: [(4, 4)],
-    6: [(5, 2)]
-}
+# graph = {
+#     1: [(2, 2), (3, 8)],
+#     2: [(3, 5), (4, 3)],
+#     3: [(2, 6), (5, 0)],
+#     4: [(3, 1), (5, 7), (6, 6)],
+#     5: [(4, 4)],
+#     6: [(5, 2)]
+# }
 
-# vertices = 6
-# edges = 11
+# vertices = random.randint(2, 100)
+# edges = random.randint(1, vertices * (vertices - 1))
 # graph = random_graph(vertices, edges)
 
-s = 1
+# s = 1
 
-dist, pred = bmssp(graph, s)
+# dist, pred = bmssp(graph, s)
 
-print(f"dist: {dist}")
-print(f"pred: {pred}")
+# print(f"dist: {dist}")
+# print(f"pred: {pred}")
 
-for vertex, path in enumerate(all_paths(dist, pred), start=1):
-    if path is None:
-        print(f"Vertex {vertex} is unreachable")
-    else:
-        print(f"SP to vertex {vertex}: {path}")
+# for vertex, path in enumerate(all_paths(dist, pred), start=1):
+#     if path is None:
+#         print(f"Vertex {vertex} is unreachable")
+#     else:
+#         print(f"SP to vertex {vertex}: {path}")
