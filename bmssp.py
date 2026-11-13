@@ -65,17 +65,17 @@ def FindPivots(graph, k, B, S, dist, pred):
 def BaseCase(graph, k, B, S, dist, pred):
     s = next(iter(S))
     heap = [(dist[s], s)]
-    settled = []
-    settled_set = set()
+    U = set(S)
+    processed = set()
 
-    while heap and len(settled) < k + 1:
+    while heap and len(U) < k + 1:
         curr_dist, vertex_i = heapq.heappop(heap)
 
-        if curr_dist > dist[vertex_i] or vertex_i in settled_set:
+        if curr_dist > dist[vertex_i] or vertex_i in processed:
             continue
 
-        settled.append(vertex_i)
-        settled_set.add(vertex_i)
+        processed.add(vertex_i)
+        U.add(vertex_i)
 
         for vertex_j, weight in graph[vertex_i]:
             new_dist = dist[vertex_i] + weight
@@ -86,12 +86,12 @@ def BaseCase(graph, k, B, S, dist, pred):
 
                 heapq.heappush(heap, (new_dist, vertex_j))
 
-    if len(settled) <= k:
-        return B, settled_set
+    if len(U) <= k:
+        return B, U
 
-    B_prime = dist[settled[k]]
+    B_prime = max(dist[v] for v in U)
 
-    U_prime = {vertex for vertex in settled if dist[vertex] < B_prime}
+    U_prime = {v for v in U if dist[v] < B_prime}
 
     return B_prime, U_prime
 
