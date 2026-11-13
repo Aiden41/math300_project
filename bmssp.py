@@ -2,6 +2,66 @@ import heapq
 import math
 from helper_fns import all_paths, random_graph
 
+def FindPivots(graph, k, B, S, dist, pred):
+
+    W_0 = set(S)
+    W = set(W_0)
+
+    for i in range(1, k+1):
+        W_i = set()
+
+        for vertex_i in W_0:
+        
+            for vertex_j, weight in graph[vertex_i]:
+                new_dist = dist[vertex_i] + weight
+
+                if new_dist <= dist[vertex_j]:
+                    dist[vertex_j] = new_dist
+
+                    if new_dist < B:
+                        W_i.add(vertex_j)
+
+        W.update(W_i)
+        W_0 = set(W_i)
+
+        if len(W) > k * len(S):
+            P = S
+            return P, W
+
+    F = set()
+
+    for vertex_i in W:
+        for vertex_j, weight in graph[vertex_i]:
+            if vertex_j in W:
+                if dist[vertex_j] == dist[vertex_i] + weight:
+                    F.add(((vertex_i), (vertex_j)))
+
+    P = set()
+
+    for vertex_i in S:
+        found_vertex = True
+        tree_vertices = {vertex_i}
+
+        while found_vertex:
+            found_vertex = False
+            for u, v in F:
+                if u in tree_vertices and v not in tree_vertices:
+                    tree_vertices.add(v)
+                    found_vertex = True
+
+        is_root = True
+        for u, v in F:
+            if v == vertex_i:
+                is_root = False
+
+
+        if len(tree_vertices) >= k:
+            if is_root == True:
+                P.add(vertex_i)
+
+    return P, W
+
+
 def BaseCase(graph, k, B, S, dist, pred):
     s = next(iter(S))
     heap = [(dist[s], s)]
@@ -34,10 +94,6 @@ def BaseCase(graph, k, B, S, dist, pred):
     U_prime = {vertex for vertex in settled if dist[vertex] < B_prime}
 
     return B_prime, U_prime
-
-def FindPivots(graph, k, B, S, dist, pred):
-    # TODO
-    return P, W
 
 def recursive_bmssp(graph, k, t, level, B, S, dist, pred):
     if level == 0:
