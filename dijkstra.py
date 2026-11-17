@@ -1,4 +1,5 @@
 import heapq
+import random
 from helper_fns import all_paths, random_graph
 
 def dijkstra(graph, s=1):
@@ -36,28 +37,30 @@ def dijkstra(graph, s=1):
 
     return (list(dist.values()), list(pred.values()))
 
-# graph = {
-#     1: [(2, 2), (3, 8)],
-#     2: [(3, 5), (4, 3)],
-#     3: [(2, 6), (5, 0)],
-#     4: [(3, 1), (5, 7), (6, 6)],
-#     5: [(4, 4)],
-#     6: [(5, 2)]
-# }
 
-# vertices = random.randint(2, 100)
-# edges = random.randint(1, vertices * (vertices - 1))
-# graph = random_graph(vertices, edges)
+if __name__ == "__main__":
+    # graph = {
+    #     1: [(2, 2), (3, 8)],
+    #     2: [(3, 5), (4, 3)],
+    #     3: [(2, 6), (5, 0)],
+    #     4: [(3, 1), (5, 7), (6, 6)],
+    #     5: [(4, 4)],
+    #     6: [(5, 2)]
+    # }
 
-# s = 1
+    vertices = random.randint(2, 100)
+    edges = random.randint(1, vertices * (vertices - 1))
+    graph = random_graph(vertices, edges)
 
-# dist, pred = dijkstra(graph, s)
+    s = 1
 
-# print(f"dist: {dist}")
-# print(f"pred: {pred}")
+    dist, pred = dijkstra(graph, s)
 
-# for vertex, path in enumerate(all_paths(dist, pred), start=1):
-#     if path is None:
-#         print(f"Vertex {vertex} is unreachable")
-#     else:
-#         print(f"SP to vertex {vertex}: {path}")
+    print(f"dist: {dist}")
+    print(f"pred: {pred}")
+
+    for vertex, path in enumerate(all_paths(dist, pred), start=1):
+        if path is None:
+            print(f"Vertex {vertex} is unreachable")
+        else:
+            print(f"SP to vertex {vertex}: {path}")
