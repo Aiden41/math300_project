@@ -15,3 +15,5 @@ helper_fns.py contains three functions used to generate random graphs and recons
 compare.py simply runs each algorithm on the same graph and ensures they output the same dist vectors. They don't compare pred, as each algorithm might find a different path. To run, type `python compare.py`.
 
 The only packages necessary are heapq, math, and random.
+
+AI was not used for this project.
