@@ -10,7 +10,7 @@ These commands will run each algorithm on the graph and source defined at the bo
 
 There are two more files, helper_fns.py and compare.py. 
 
-helper_fns.py contains three functions used to generate random graphs and reconstruct the actual shortest paths from dist and pred. In the random graph generator, the weights are some integer between 0 and 100. This can be changed on line 68. 
+helper_fns.py contains three functions used to generate random graphs and reconstruct the actual shortest paths from dist and pred. In the random graph generator, the weights are some integer between 0 and 100. This can be changed on line 68. The later is part of the extra credit for Project 2. The shortest paths to each vertex can be obtained by passing dist and pred to the all_paths function.
 
 compare.py simply runs each algorithm on the same graph and ensures they output the same dist vectors. They don't compare pred, as each algorithm might find a different path. To run, type `python compare.py`.
 
