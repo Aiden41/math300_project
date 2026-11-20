@@ -17,4 +17,5 @@ compare.py simply runs each algorithm on the same graph and ensures they output 
 The only packages necessary are heapq, math, and random.
 
 AI Disclosure:
+Aiden Dickson: AI was not used for my work on this project.
 Bridgette Lopez:  ChatGPT was used to help understand the BMSSP algorithm and its pseudocode, clarify Python concepts, and provide guidance during the coding and debugging process.
